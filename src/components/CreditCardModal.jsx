@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/CreditModal.css";
 import { useDispatch } from "react-redux";
 import mastercardImage from "../assets/mastercard-logo.webp";
@@ -13,6 +13,7 @@ function CreditCardModal({ isOpen, onClose, onPayment }) {
     expiry: "",
     cvv: "",
   });
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [cardType, setCardType] = useState("visa");
   const [validationErrors, setValidationErrors] = useState({
     number: "",
@@ -20,12 +21,31 @@ function CreditCardModal({ isOpen, onClose, onPayment }) {
     cvv: "",
   });
 
+  useEffect(() => {
+    if (!dataLoaded) {
+      const savedData = localStorage.getItem("creditCardData");
+      if (savedData) {
+        setCardInfo(JSON.parse(savedData));
+      }
+
+      setDataLoaded(true);
+    }
+  }, [dataLoaded]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCardInfo({
       ...cardInfo,
       [name]: value,
     });
+
+    localStorage.setItem(
+      "creditCardData",
+      JSON.stringify({
+        ...cardInfo,
+        [name]: value,
+      })
+    );
 
     if (name === "number") {
       const validationResult = validateCardNumber(value);
