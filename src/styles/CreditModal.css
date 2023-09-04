@@ -33,6 +33,34 @@
     cursor: pointer;
     font-size: 20px;
   }
+
+  .modal-content button{
+    border-radius: 8px;
+    background-color: #72a4a8;
+  }
+  .card-number-input{
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    align-items: center;
+  }
+  .card-number-input input {
+    flex: 8; 
+  }
+
+
+  .error{
+    color: red;
+    font-size: 12px;
+    margin: 0;
+  }
+
+  .logo{
+    flex: 2;
+    width: 100%;
+    height: 40px;
+    object-fit: contain;
+  }
   
   h2 {
     text-align: center;
@@ -61,6 +89,6 @@
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #5e888b;
   }
   
