@@ -1,0 +1,23 @@
+
+.Product {
+    text-align: center;
+    padding: 20px; 
+  }
+  
+  .product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+    .App {
+      padding: 10px; 
+    }
+  
+    .product-list {
+      gap: 10px; 
+    }
+  }

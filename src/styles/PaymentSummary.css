@@ -1,0 +1,33 @@
+
+.payment-summary {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .payment-summary h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .payment-summary p {
+    font-size: 1rem;
+    margin: 5px 0;
+  }
+  
+  .payment-summary button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .payment-summary button:hover {
+    background-color: #0056b3;
+  }
+  
