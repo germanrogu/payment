@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreditCardModal from "../components/CreditCardModal";
 import PaymentSummary from "../components/PaymentSummary";
 import Notification from "../components/common/Notification";
-import { processPayment } from "../services/PaymentServices";
 import { products } from "../constants/Products";
 import { useDispatch, useSelector } from "react-redux";
 import OrderDetails from "./OrderDetails";
@@ -12,35 +11,43 @@ import "../styles/ProductDetails.css";
 const ProductDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPaymentSummary, setShowPaymentSummary] = useState(false);
-  const [paymentInfo, setPaymentInfo] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const handlePayment = (info) => {
-    processPayment(info)
-      .then((response) => {
-        setPaymentInfo(info);
-        setShowPaymentSummary(true);
-        setPaymentError(null);
-      })
-      .catch((error) => {
-        setPaymentError("Error al procesar el pago. Inténtalo de nuevo.");
-        setShowPaymentSummary(false);
-        setPaymentInfo(null);
-      });
+  const handlePayment = () => {
+    setShowPaymentSummary(true);
   };
 
-  const confirmPayment = () => {
-    setShowPaymentSummary(false);
-    setPaymentInfo(null);
-    navigate("/payment-result?message=Pago exitoso");
+  const paymentData = useSelector((state) => state.clientProgress);
+
+  const confirmPayment = async () => {
+    dispatch({ type: "SET_LOADING", payload: true });
+
+    try {
+      dispatch({ type: "CONFIRM_PAYMENT", payload: paymentData });
+      setShowPaymentSummary(false);
+    } catch (error) {
+      setShowPaymentSummary(false);
+      setPaymentError(error.message);
+    }
   };
+
+  useEffect(() => {
+    if (paymentData.confirmationSuccess) {
+      navigate("/payment-result?message=Successful payment");
+    }
+  }, [navigate, paymentData.confirmationSuccess]);
 
   return (
     <>
+      {paymentData.loading && (
+        <div className='loader-container'>
+          <div className='loader'></div>
+        </div>
+      )}
       <OrderDetails
         openModal={() => setIsModalOpen(true)}
         products={products}
@@ -51,10 +58,7 @@ const ProductDetails = () => {
         onPayment={handlePayment}
       />
       {showPaymentSummary && (
-        <PaymentSummary
-          paymentInfo={paymentInfo}
-          onConfirmPayment={confirmPayment}
-        />
+        <PaymentSummary onConfirmPayment={confirmPayment} />
       )}
       {paymentError && <Notification message={paymentError} type='error' />}
     </>
