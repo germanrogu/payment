@@ -17,6 +17,7 @@ const initialClientProgress = {
   paymentsCompleted: 0,
   invoiceNumber: 788152,
   receiptVoucher: "18KU-62IIK",
+  confirmationSuccess: false,
 };
 
 function clientProgressReducer(state = initialClientProgress, action) {
@@ -24,7 +25,7 @@ function clientProgressReducer(state = initialClientProgress, action) {
     case "UPDATE_CLIENT_PROGRESS":
       return {
         ...state,
-        loading: { ...action.payload },
+        clientProgress: { ...action.payload },
       };
     case "PAYMENT_DATA":
       return {
@@ -35,6 +36,27 @@ function clientProgressReducer(state = initialClientProgress, action) {
       return {
         ...state,
         paymentsCompleted: ++state.paymentsCompleted,
+      };
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: action.payload,
+      };
+    case "CONFIRM_PAYMENT_SUCCESS":
+      return {
+        ...state,
+        confirmationSuccess: true,
+      };
+    case "RESET_PAYMENT_DATA":
+      return {
+        ...state,
+        paymentData: {},
+      };
+
+    case "RESET_CONFIRMATION_SUCCESS":
+      return {
+        ...state,
+        confirmationSuccess: false,
       };
     default:
       return state;

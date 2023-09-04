@@ -39,7 +39,7 @@ export default function OrderDetails({ openModal, products }) {
         Total Paid: <span className='order-amount'>$32.2</span>
       </div>
       <div className='order-button'>
-        <button onClick={openModal}>Debit or Credit Card</button>
+        <button onClick={openModal}>Pay with Credit Card</button>
       </div>
     </section>
   );

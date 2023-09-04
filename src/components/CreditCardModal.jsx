@@ -105,7 +105,7 @@ function CreditCardModal({ isOpen, onClose, onPayment }) {
       setValidationErrors({ ...validationErrors, cvv: "Invalid CVV" });
     } else {
       dispatch({ type: "PAYMENT_DATA", payload: cardInfo });
-      onPayment(cardInfo);
+      onPayment();
       onClose();
     }
   };
