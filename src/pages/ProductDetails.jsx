@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Product from "../components/Product";
 import "../styles/ProductDetails.css";
 import CreditCardModal from "../components/CreditCardModal";
@@ -25,6 +26,8 @@ const ProductDetails = () => {
   const [paymentInfo, setPaymentInfo] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
 
+  const navigate = useNavigate();
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -50,6 +53,7 @@ const ProductDetails = () => {
   const confirmPayment = () => {
     setShowPaymentSummary(false);
     setPaymentInfo(null);
+    navigate("/payment-result?message=Pago exitoso");
   };
 
   return (
