@@ -1,33 +1,90 @@
+.payment-summary-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .payment-summary {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    margin-top: 20px;
-    text-align: center;
-  }
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  width: 400px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.payment-summary h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.invoice-info p {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  color: #555;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.invoice-details p {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  color: #555;
+}
+
+.cart-details h3 {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: #333;
+}
+
+.cart-details ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-details li {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  color: #555;
+}
+
+button {
+  border-radius: 8px;
+background-color: #72a4a8;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
   
-  .payment-summary h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .payment-summary p {
-    font-size: 1rem;
-    margin: 5px 0;
-  }
-  
-  .payment-summary button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .payment-summary button:hover {
-    background-color: #0056b3;
-  }
-  
+background-color: #4e797c;
+}
+
+.close-button {
+  margin-left: 10px;
+}
+
+
+
+
+
