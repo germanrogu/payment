@@ -16,6 +16,7 @@ function PaymentResult() {
   const navigate = useNavigate();
 
   const handleReset = () => {
+    localStorage.removeItem("creditCardData");
     dispatch({ type: "RESET_PAYMENT_DATA" });
     dispatch({ type: "RESET_CONFIRMATION_SUCCESS" });
     navigate("/");
