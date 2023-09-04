@@ -1,24 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Product from "../components/Product";
-import "../styles/ProductDetails.css";
 import CreditCardModal from "../components/CreditCardModal";
 import PaymentSummary from "../components/PaymentSummary";
 import Notification from "../components/common/Notification";
 import { processPayment } from "../services/PaymentServices";
-
-const products = [
-  {
-    name: "Producto 1",
-    description: "Descripción del Producto 1",
-    price: 19.99,
-  },
-  {
-    name: "Producto 2",
-    description: "Descripción del Producto 2",
-    price: 29.99,
-  },
-];
+import { products } from "../constants/Products";
+import { useDispatch, useSelector } from "react-redux";
+import OrderDetails from "./OrderDetails";
+import "../styles/ProductDetails.css";
 
 const ProductDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,15 +15,9 @@ const ProductDetails = () => {
   const [paymentInfo, setPaymentInfo] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
 
+  //   const dispatch = useDispatch();
+
   const navigate = useNavigate();
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   const handlePayment = (info) => {
     processPayment(info)
@@ -57,22 +40,14 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className='Product'>
-      <h1>Tienda</h1>
-      <button onClick={openModal}>Paga con tarjeta de crédito</button>
-      <div className='product-list'>
-        {products.map((product, index) => (
-          <Product
-            key={index}
-            name={product.name}
-            description={product.description}
-            price={product.price}
-          />
-        ))}
-      </div>
+    <>
+      <OrderDetails
+        openModal={() => setIsModalOpen(true)}
+        products={products}
+      />
       <CreditCardModal
         isOpen={isModalOpen}
-        onClose={closeModal}
+        onClose={() => setIsModalOpen(false)}
         onPayment={handlePayment}
       />
       {showPaymentSummary && (
@@ -82,7 +57,7 @@ const ProductDetails = () => {
         />
       )}
       {paymentError && <Notification message={paymentError} type='error' />}
-    </div>
+    </>
   );
 };
 
